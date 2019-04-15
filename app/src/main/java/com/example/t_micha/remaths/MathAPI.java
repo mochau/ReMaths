@@ -28,4 +28,3 @@ public class MathAPI {
         return dummyMathsResponse;
     }
 }
-
