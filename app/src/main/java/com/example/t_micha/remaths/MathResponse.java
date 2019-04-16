@@ -95,6 +95,17 @@ public class MathResponse{
         this.difficulty = difficulty;
     }
 
+    public MathResponse(String id, String question, List<String> choices, Integer correctChoice, String instruction, String category, String topic, String difficulty) {
+        this.id = id;
+        this.question = question;
+        this.choices = choices;
+        this.correctChoice = correctChoice;
+        this.instruction = instruction;
+        this.category = category;
+        this.topic = topic;
+        this.difficulty = difficulty;
+    }
+
     @Override
     public String toString() {
         return "MathResponse{" +
