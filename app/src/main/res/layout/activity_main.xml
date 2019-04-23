@@ -7,24 +7,70 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-    <TextView
-            android:layout_width="369dp"
-            android:layout_height="84dp"
-            android:text="Question"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:id="@+id/tvQs" android:textAlignment="center"
-            app:layout_constraintVertical_bias="0.083"/>
+    <io.github.kexanie.library.MathView
+            android:id="@+id/mv_1"
+            android:layout_width="285dp"
+            android:layout_height="74dp"
+            app:engine="MathJax"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintVertical_bias="0.316" app:layout_constraintHorizontal_bias="0.927">
+    </io.github.kexanie.library.MathView>
+    <io.github.kexanie.library.MathView
+            android:id="@+id/mv_2"
+            android:layout_width="285dp"
+            android:layout_height="74dp"
+            app:engine="MathJax"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintVertical_bias="0.442" app:layout_constraintHorizontal_bias="0.927">
+    </io.github.kexanie.library.MathView>
+    <io.github.kexanie.library.MathView
+            android:id="@+id/mv_3"
+            android:layout_width="285dp"
+            android:layout_height="74dp"
+            app:engine="MathJax"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintVertical_bias="0.571" app:layout_constraintHorizontal_bias="0.927">
+    </io.github.kexanie.library.MathView>
+    <io.github.kexanie.library.MathView
+            android:id="@+id/mv_4"
+            android:layout_width="285dp"
+            android:layout_height="74dp"
+            app:engine="MathJax"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintVertical_bias="0.685" app:layout_constraintHorizontal_bias="0.927">
+    </io.github.kexanie.library.MathView>
+    <io.github.kexanie.library.MathView
+            android:id="@+id/mv_5"
+            android:layout_width="285dp"
+            android:layout_height="74dp"
+            app:engine="MathJax"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintVertical_bias="0.817" app:layout_constraintHorizontal_bias="0.927">
+    </io.github.kexanie.library.MathView>
     <Button
-            android:text="Refresh"
+            android:text="Next Question"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btRefresh" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.498" app:layout_constraintVertical_bias="0.912"
+            app:layout_constraintHorizontal_bias="0.498" app:layout_constraintVertical_bias="0.964"
             android:onClick="onRefresh"/>
     <Button
             android:text="Q1"
@@ -32,66 +78,64 @@
             android:layout_height="wrap_content"
             android:id="@+id/bt1" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.498" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.026" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-            app:layout_constraintVertical_bias="0.312" android:onClick="onQ1"/>
+            app:layout_constraintVertical_bias="0.302" android:onClick="onQ1"/>
     <Button
             android:text="Q2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bt2" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.498" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.026" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-            app:layout_constraintVertical_bias="0.411" android:onClick="onQ2"/>
+            app:layout_constraintVertical_bias="0.425" android:onClick="onQ2"/>
     <Button
             android:text="Q3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bt3" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.498" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.026" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-            app:layout_constraintVertical_bias="0.515" android:onClick="onQ3"/>
+            app:layout_constraintVertical_bias="0.547" android:onClick="onQ3"/>
     <Button
             android:text="Q4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bt4" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.498" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.026" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-            app:layout_constraintVertical_bias="0.615" android:onClick="onQ4"/>
+            app:layout_constraintVertical_bias="0.655" android:onClick="onQ4"/>
     <Button
             android:text="Q5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bt5" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.498" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.026" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-            app:layout_constraintVertical_bias="0.71" android:onClick="onQ5"/>
-    <WebView
-            android:layout_width="266dp"
-            android:layout_height="62dp"
-            android:id="@+id/wvMath" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintVertical_bias="0.211" app:layout_constraintHorizontal_bias="0.496"/>
-<!--
+            app:layout_constraintVertical_bias="0.781" android:onClick="onQ5"/>
     <io.github.kexanie.library.MathView
-            android:id="@+id/mv_f1"
-            android:layout_width="328dp"
-            android:layout_height="52dp"
-            text="When \\(a \\ne 0\\), there are two solutions to \\(ax^2 + bx + c = 0\\)
-        and they are $$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$"
-            engine="MathJax"
+            android:id="@+id/mv_qs"
+            android:layout_width="285dp"
+            android:layout_height="74dp"
+            app:engine="MathJax"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.492" app:layout_constraintVertical_bias="0.829">
+            app:layout_constraintVertical_bias="0.103">
     </io.github.kexanie.library.MathView>
--->
+    <TextView
+            android:text="TextView"
+            android:layout_width="85dp"
+            android:layout_height="40dp"
+            android:id="@+id/tv_timer" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintVertical_bias="0.0" android:textAlignment="center"
+            android:textColor="@color/colorAccent" android:textSize="18sp"/>
 </android.support.constraint.ConstraintLayout>

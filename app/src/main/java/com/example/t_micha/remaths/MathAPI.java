@@ -7,7 +7,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class MathAPI {
                     .build();
             MathService service = retrofit.create(MathService.class);
             Gson gson = new Gson();
-            Call<MathResponse> call = service.listMaths("advanced");
+            Call<MathResponse> call = service.listMaths("intermediate");
             Response<MathResponse> response = call.execute();
             Log.e("AdviceAPI", "call works");
             if (response.body().getQuestion() != null) {
