@@ -2,24 +2,35 @@ package com.example.t_micha.remaths;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.google.gson.Gson;
 import io.github.kexanie.library.MathView;
+import retrofit2.Call;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    List<String> APILimitedCall = Arrays.asList("Q1", "Q2", "Q3", "Q4", "Q5");
+    public MathResponse MR = new MathResponse("ID - Error", "Question - API Call Limit Reached\n\nPlease wait as only 10 API calls can be made every 60 seconds.", APILimitedCall, -1, "Instruction - Error", "Category - Error", "Topic - Error", "Difficulty - Error");;
     public int correctResponse;
+    public int score = 0;
     CountDownTimer td;
+    boolean timeout_flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +41,45 @@ public class MainActivity extends AppCompatActivity {
         onRefresh(null);
     }
 
+    private class GetMathQuestion extends AsyncTask<Void, Void, MathResponse> {
+        @Override
+        protected MathResponse doInBackground(Void... voids) {
+            try {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl("https://math.ly/api/v1/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                MathService service = retrofit.create(MathService.class);
+                Gson gson = new Gson();
+                Call<MathResponse> call = service.listMaths("intermediate");
+                Response<MathResponse> response = call.execute();
+                Log.e("AdviceAPI", "call works");
+                if (response.body().getQuestion() != null) {
+                    return response.body();
+                }
+                List<String> APILimitedCall = Arrays.asList("Q1", "Q2", "Q3", "Q4", "Q5");
+                return new MathResponse("ID - Error", "Question - API Call Limit Reached\n\nPlease wait as only 10 API calls can be made every 60 seconds.", APILimitedCall, -1, "Instruction - Error", "Category - Error", "Topic - Error", "Difficulty - Error");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("AdviceAPI", "call unsuccessful");
+                List<String> APILimitedCall = Arrays.asList("Q1", "Q2", "Q3", "Q4", "Q5");
+                return new MathResponse("ID - Error", "Question - API Call Limit Reached\n\nPlease wait as only 10 API calls can be made every 60 seconds.", APILimitedCall, -1, "Instruction - Error", "Category - Error", "Topic - Error", "Difficulty - Error");
+            }
+        }
+
+        @Override
+        protected void onPostExecute(MathResponse mathresponse) {
+            MR = mathresponse;
+        }
+
+    }
+
     public void onRefresh(View view) {
-        MathAPI dummyMathAPI = new MathAPI();
-        MathResponse MR = dummyMathAPI.returnMath();
+        //MathAPI dummyMathAPI = new MathAPI();
+        //MathResponse MR = dummyMathAPI.returnMath();
+        new GetMathQuestion().execute();
+        ((TextView) findViewById(R.id.tv_score)).setText("Score: " + score);
         ((MathView) findViewById(R.id.mv_1)).setText(MR.getChoices().get(0));
         ((MathView) findViewById(R.id.mv_2)).setText(MR.getChoices().get(1));
         ((MathView) findViewById(R.id.mv_3)).setText(MR.getChoices().get(2));
@@ -46,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         correctResponse = MR.getCorrectChoice();
         ((MathView) findViewById(R.id.mv_qs)).setText("<math>" + MR.getQuestion() + "</math>");
 
-        td = new CountDownTimer(20000, 1000) {
+        td = new CountDownTimer(10000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 ((TextView) findViewById(R.id.tv_timer)).setText("Timer: " + millisUntilFinished / 1000);
@@ -56,6 +103,12 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.bt4).setEnabled(true);
                 findViewById(R.id.bt5).setEnabled(true);
                 findViewById(R.id.btRefresh).setVisibility(View.GONE);
+                timeout_flag = false;
+                if (millisUntilFinished < 1000) {
+                    timeout_flag = true;
+                    answerDialog(false);
+                    findViewById(R.id.btRefresh).setVisibility(View.VISIBLE);
+                }
             }
 
             public void onFinish() {
@@ -77,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
         if (Answer) {
             dialog.setMessage("Good work");
             dialog.setTitle("Correct");
+            score++;
+            ((TextView) findViewById(R.id.tv_score)).setText("Score: " + score);
+        } else if (timeout_flag){
+            dialog.setMessage("Please work faster");
+            dialog.setTitle("Out of Time");
         } else {
             dialog.setMessage("Please study harder");
             dialog.setTitle("Incorrect");
