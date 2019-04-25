@@ -58,7 +58,11 @@ public class MathQuestion extends AppCompatActivity {
         correctResponse = MR.getCorrectChoice();
         ((MathView) findViewById(R.id.mv_qs)).config("MathJax.Hub.Config({\"HTML-CSS\": {scale: 200}});");
         ((MathView) findViewById(R.id.mv_qs)).setText("<math>" + MR.getQuestion() + "</math>");
-
+        findViewById(R.id.bt1).setBackgroundResource(R.drawable.round_next_button);
+        findViewById(R.id.bt2).setBackgroundResource(R.drawable.round_next_button);
+        findViewById(R.id.bt3).setBackgroundResource(R.drawable.round_next_button);
+        findViewById(R.id.bt4).setBackgroundResource(R.drawable.round_next_button);
+        findViewById(R.id.bt5).setBackgroundResource(R.drawable.round_next_button);
 
         td = new CountDownTimer(10000, 1000) {
 
@@ -140,8 +144,12 @@ public class MathQuestion extends AppCompatActivity {
     public void onQ1(View view) {
         if (correctResponse == 0) {
             ((TextView) findViewById(R.id.bt1)).setText("Correct!");
+            findViewById(R.id.bt1).setBackgroundResource(R.drawable.correct_answer);
+//            ((Button) findViewById(R.id.bt1)).setBackgroundColor(Color.GREEN);
+//            findViewById(R.id.bt1).setBackgroundColor(Color.GREEN);
         } else {
             ((TextView) findViewById(R.id.bt1)).setText("Incorrect!");
+            findViewById(R.id.bt1).setBackgroundResource(R.drawable.wrong_answer);
         }
         answerDialog(correctResponse == 0);
     }
@@ -149,8 +157,10 @@ public class MathQuestion extends AppCompatActivity {
     public void onQ2(View view) {
         if (correctResponse == 1) {
             ((TextView) findViewById(R.id.bt2)).setText("Correct!");
+            findViewById(R.id.bt2).setBackgroundResource(R.drawable.correct_answer);
         } else {
             ((TextView) findViewById(R.id.bt2)).setText("Incorrect!");
+            findViewById(R.id.bt2).setBackgroundResource(R.drawable.wrong_answer);
         }
         answerDialog(correctResponse == 1);
     }
@@ -158,8 +168,10 @@ public class MathQuestion extends AppCompatActivity {
     public void onQ3(View view) {
         if (correctResponse == 2) {
             ((TextView) findViewById(R.id.bt3)).setText("Correct!");
+            findViewById(R.id.bt3).setBackgroundResource(R.drawable.correct_answer);
         } else {
             ((TextView) findViewById(R.id.bt3)).setText("Incorrect!");
+            findViewById(R.id.bt3).setBackgroundResource(R.drawable.wrong_answer);
         }
         answerDialog(correctResponse == 2);
     }
@@ -167,8 +179,10 @@ public class MathQuestion extends AppCompatActivity {
     public void onQ4(View view) {
         if (correctResponse == 3) {
             ((TextView) findViewById(R.id.bt4)).setText("Correct!");
+            findViewById(R.id.bt4).setBackgroundResource(R.drawable.correct_answer);
         } else {
             ((TextView) findViewById(R.id.bt4)).setText("Incorrect!");
+            findViewById(R.id.bt4).setBackgroundResource(R.drawable.wrong_answer);
         }
         answerDialog(correctResponse == 3);
     }
@@ -176,8 +190,10 @@ public class MathQuestion extends AppCompatActivity {
     public void onQ5(View view) {
         if (correctResponse == 4) {
             ((TextView) findViewById(R.id.bt5)).setText("Correct!");
+            findViewById(R.id.bt5).setBackgroundResource(R.drawable.correct_answer);
         } else {
             ((TextView) findViewById(R.id.bt5)).setText("Incorrect!");
+            findViewById(R.id.bt5).setBackgroundResource(R.drawable.wrong_answer);
         }
         answerDialog(correctResponse == 4);
     }
