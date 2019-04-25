@@ -5,6 +5,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface MathService {
-    @GET("algebra/equations-involving-fractions.json")
-    Call<MathResponse> listMaths(@Query("difficulty") String difficulty);
+    @GET("arithmetic/simple.json")
+    Call<MathResponse> listSimple(@Query("difficulty") String difficulty);
+
+    @GET("algebra/linear-equations.json")
+    Call<MathResponse> listLinearEquations(@Query("difficulty") String difficulty);
 }

@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MathQuestion">
+        tools:context=".MainActivity">
 
     <Button
             android:drawableTop="@drawable/next_icon"
@@ -29,4 +29,51 @@
             android:layout_marginBottom="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintHorizontal_bias="0.45"/>
+    <Button
+            android:text="Algebra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_alg" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintHorizontal_bias="0.208" app:layout_constraintVertical_bias="0.073"
+            android:onClick="topicSimple"/>
+    <Button
+            android:text="Calculus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bt_calc" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintHorizontal_bias="0.751" app:layout_constraintVertical_bias="0.075"
+            android:onClick="topicLinearEquation"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="395dp"
+            android:layout_height="60dp" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.257">
+        <Button
+                android:text="Easy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" tools:layout_editor_absoluteY="229dp"
+                tools:layout_editor_absoluteX="32dp" android:id="@+id/bt_easy2" android:layout_weight="1"
+                android:onClick="setEasy"/>
+        <Button
+                android:text="Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" tools:layout_editor_absoluteY="229dp"
+                tools:layout_editor_absoluteX="152dp" android:id="@+id/bt_medium" android:layout_weight="1"
+                android:onClick="setMedium"/>
+        <Button
+                android:text="Hard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" tools:layout_editor_absoluteY="229dp"
+                tools:layout_editor_absoluteX="285dp" android:id="@+id/bt_hard" android:layout_weight="1"
+                android:onClick="setHard"/>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

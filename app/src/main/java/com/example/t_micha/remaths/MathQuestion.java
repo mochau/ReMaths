@@ -1,27 +1,16 @@
 package com.example.t_micha.remaths;
 
-        import android.app.Activity;
         import android.app.AlertDialog;
         import android.content.DialogInterface;
-        import android.os.AsyncTask;
+        import android.content.Intent;
         import android.os.CountDownTimer;
-        import android.os.StrictMode;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
-        import android.util.Log;
         import android.view.View;
         import android.view.Window;
-        import android.webkit.WebView;
-        import android.widget.Button;
+        import android.widget.EditText;
         import android.widget.TextView;
-        import android.widget.Toast;
-        import com.google.gson.Gson;
         import io.github.kexanie.library.MathView;
-        import retrofit2.Call;
-        import retrofit2.Response;
-        import retrofit2.Retrofit;
-        import retrofit2.converter.gson.GsonConverterFactory;
-
         import java.util.Arrays;
         import java.util.List;
 
@@ -30,16 +19,15 @@ public class MathQuestion extends AppCompatActivity {
     static List<String> APILimitedCall = Arrays.asList("Q1", "Q2", "Q3", "Q4", "Q5");
     public static MathResponse MR = new MathResponse("ID - Error", "Question - API Call Limit Reached\n\nPlease wait as only 10 API calls can be made every 60 seconds.", APILimitedCall, -1, "Instruction - Error", "Category - Error", "Topic - Error", "Difficulty - Error");;
     public int correctResponse;
-    public int score = 0;
+    public static int score = 0;
     CountDownTimer td;
     boolean timeout_flag = false;
     String userName;
+    int qs_count = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        //StrictMode.setThreadPolicy(policy);
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
         getSupportActionBar().hide(); // hide the title bar
         setContentView(R.layout.activity_math_question);
@@ -47,47 +35,11 @@ public class MathQuestion extends AppCompatActivity {
         onRefresh(null);
     }
 
-    /*
-    public class GetMathQuestion extends AsyncTask<Void, Void, MathResponse> {
-        @Override
-        protected MathResponse doInBackground(Void... voids) {
-            try {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("https://math.ly/api/v1/")
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                MathService service = retrofit.create(MathService.class);
-                Gson gson = new Gson();
-                Call<MathResponse> call = service.listMaths("intermediate");
-                Response<MathResponse> response = call.execute();
-                Log.e("AdviceAPI", "call works");
-                if (response.body().getQuestion() != null) {
-                    return response.body();
-                }
-                List<String> APILimitedCall = Arrays.asList("Q1", "Q2", "Q3", "Q4", "Q5");
-                return new MathResponse("ID - Error", "Question - API Call Limit Reached\n\nPlease wait as only 10 API calls can be made every 60 seconds.", APILimitedCall, -1, "Instruction - Error", "Category - Error", "Topic - Error", "Difficulty - Error");
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.e("AdviceAPI", "call unsuccessful");
-                List<String> APILimitedCall = Arrays.asList("Q1", "Q2", "Q3", "Q4", "Q5");
-                return new MathResponse("ID - Error", "Question - API Call Limit Reached\n\nPlease wait as only 10 API calls can be made every 60 seconds.", APILimitedCall, -1, "Instruction - Error", "Category - Error", "Topic - Error", "Difficulty - Error");
-            }
-        }
-
-        @Override
-        protected void onPostExecute(MathResponse mathresponse) {
-            MR = mathresponse;
-        }
-
-    }
-    */
 
     public void onRefresh(View view) {
-        //MathAPI dummyMathAPI = new MathAPI();
-        //MathResponse MR = dummyMathAPI.returnMath();
         new MathAPI().execute();
-        ((TextView) findViewById(R.id.tv_score)).setText("Score: " + score);
+        qs_count++;
+        ((TextView) findViewById(R.id.tv_score)).setText("Score: \n" + score + " / 5");
         ((MathView) findViewById(R.id.mv_1)).config("MathJax.Hub.Config({\"HTML-CSS\": {scale: 200}});");
         ((MathView) findViewById(R.id.mv_1)).setText(MR.getChoices().get(0));
         ((MathView) findViewById(R.id.mv_2)).config("MathJax.Hub.Config({\"HTML-CSS\": {scale: 200}});");
@@ -111,7 +63,7 @@ public class MathQuestion extends AppCompatActivity {
         td = new CountDownTimer(10000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                ((TextView) findViewById(R.id.tv_timer)).setText("Timer: " + millisUntilFinished / 1000);
+                ((TextView) findViewById(R.id.tv_timer)).setText(String.valueOf(millisUntilFinished / 1000));
                 findViewById(R.id.bt1).setEnabled(true);
                 findViewById(R.id.bt2).setEnabled(true);
                 findViewById(R.id.bt3).setEnabled(true);
@@ -127,7 +79,7 @@ public class MathQuestion extends AppCompatActivity {
             }
 
             public void onFinish() {
-                ((TextView) findViewById(R.id.tv_timer)).setText("Time's Up");
+                ((TextView) findViewById(R.id.tv_timer)).setText("0");
                 findViewById(R.id.bt1).setEnabled(false);
                 findViewById(R.id.bt2).setEnabled(false);
                 findViewById(R.id.bt3).setEnabled(false);
@@ -146,7 +98,7 @@ public class MathQuestion extends AppCompatActivity {
             dialog.setMessage("Good work " + userName);
             dialog.setTitle("Correct");
             score++;
-            ((TextView) findViewById(R.id.tv_score)).setText("Score: " + score);
+            ((TextView) findViewById(R.id.tv_score)).setText("Score: \n" + score + " / 5");
         } else if (timeout_flag){
             dialog.setMessage("Please work faster " + userName);
             dialog.setTitle("Out of Time");
@@ -154,12 +106,23 @@ public class MathQuestion extends AppCompatActivity {
             dialog.setMessage("Please study harder " + userName);
             dialog.setTitle("Incorrect");
         }
-        dialog.setPositiveButton("next question",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        onRefresh(null);
-                    }
-                });
+
+        if (qs_count == 6) {
+            dialog.setPositiveButton("Finish",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            launchResultPage(null);
+                        }
+                    });
+        } else {
+                dialog.setPositiveButton("next question",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                onRefresh(null);
+                            }
+                        });
+            }
+
         dialog.setNegativeButton("review", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -218,4 +181,10 @@ public class MathQuestion extends AppCompatActivity {
         }
         answerDialog(correctResponse == 4);
     }
+
+    public void launchResultPage(View view) {
+        Intent intent = new Intent(this, ResultPage.class);
+        startActivity(intent);
+    }
+
 }
