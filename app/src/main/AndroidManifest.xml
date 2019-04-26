@@ -28,6 +28,10 @@
         </activity>
         <activity android:name=".ResultPage">
         </activity>
+        <activity android:name=".SelectionMenu">
+        </activity>
+        <activity android:name=".instruction">
+        </activity>
     </application>
 
 </manifest>
