@@ -1,13 +1,14 @@
 package com.example.t_micha.remaths;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 
 public class MainActivity extends AppCompatActivity {
-    //public static final String EXTRA_MESSAGE = "com.example.t_micha.remaths.MESSAGE";
+    CountDownTimer td;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +16,13 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //hide title bar
         getSupportActionBar().hide(); // hide title bar
         setContentView(R.layout.activity_main);
+        td = new CountDownTimer(3000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                            }
+            public void onFinish() {
+                launchSelectionMenu(null);
+            }
+        }.start();
     }
 
     public void launchSelectionMenu(View view) {
