@@ -16,7 +16,11 @@ public class ResultPage extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //hide title bar
         getSupportActionBar().hide(); // hide title bar
         setContentView(R.layout.activity_result_page);
+
+        //Displays user's final score
         ((TextView) findViewById(R.id.tv_result)).setText("Score: \n" + MathQuestion.score + " / 5");
+
+        //Provides user with feedback based on their score
         if (MathQuestion.score == 0) {
             resultMessage = "Why Maths, " + MathQuestion.userName;
         } else if (MathQuestion.score == 1) {
@@ -35,8 +39,8 @@ public class ResultPage extends AppCompatActivity {
     }
 
     public void launchSelectionMenuAgain(View view) {
-        MathQuestion.score = 0;
-        MathQuestion.qs_count = 0;
+        MathQuestion.score = 0; //Resets score for next round
+        MathQuestion.qs_count = 0; //Resets count for next round
         Intent intent = new Intent(this, SelectionMenu.class);
         startActivity(intent);
     }

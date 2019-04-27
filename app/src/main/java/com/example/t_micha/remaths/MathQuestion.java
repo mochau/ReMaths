@@ -15,14 +15,17 @@ import java.util.List;
 
 public class MathQuestion extends AppCompatActivity {
 
+    //Default MathResponse object
     static List<String> APILimitedCall = Arrays.asList("Q1", "Q2", "Q3", "Q4", "Q5");
     public static MathResponse MR = new MathResponse("ID - Error", "Question - API Call Limit Reached\n\nPlease wait as only 10 API calls can be made every 60 seconds.", APILimitedCall, -1, "Instruction - Error", "Category - Error", "Topic - Error", "Difficulty - Error");
-    public int correctResponse;
-    public static int score = 0;
-    CountDownTimer td;
-    boolean timeout_flag = false;
-    public static String userName = "user";
-    public static int qs_count = 0; //
+
+    CountDownTimer td; //Time limit per question
+    boolean timeout_flag = false; //Raises flag if time limit reached
+
+    public static String userName = "user"; //Holds the user's Name
+    public static int qs_count = 0; //Keeps track of the user's question number
+    public static int score = 0; //Keeps track of the user's score
+    public int correctResponse; //Holds the correct answer
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,25 +33,25 @@ public class MathQuestion extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //hide title bar
         getSupportActionBar().hide(); // hide title bar
         setContentView(R.layout.activity_math_question);
-        userName = getIntent().getStringExtra("NAME_MESSAGE");
+
+        userName = getIntent().getStringExtra("NAME_MESSAGE"); //Retrieve intent from Instruction Activity
         onRefresh(null);
     }
-
 
     public void onRefresh(View view) {
         new MathAPI().execute();
 
-        qs_count++; //counts question number
-        correctResponse = MR.getCorrectChoice(); //retrieves correct answer
+        qs_count++; //Counts question number
+        correctResponse = MR.getCorrectChoice(); //Retrieves correct answer
 
-        //counts score
+        //Counts score
         ((TextView) findViewById(R.id.tv_score)).setText("Question: \n   " + (qs_count) + " / 5");
 
-        //prepares the question
+        //Prepares the question
         ((MathView) findViewById(R.id.mv_qs)).config("MathJax.Hub.Config({\"HTML-CSS\": {scale: 180}});");
         ((MathView) findViewById(R.id.mv_qs)).setText("<math>" + MR.getQuestion() + "</math>");
 
-        //prepares the answer button and answer
+        //Prepares the answer button and answer
         ((MathView) findViewById(R.id.mv_1)).config("MathJax.Hub.Config({\"HTML-CSS\": {scale: 150}});");
         ((MathView) findViewById(R.id.mv_1)).setText(MR.getChoices().get(0));
         ((MathView) findViewById(R.id.mv_2)).config("MathJax.Hub.Config({\"HTML-CSS\": {scale: 150}});");
@@ -65,15 +68,16 @@ public class MathQuestion extends AppCompatActivity {
         ((TextView) findViewById(R.id.bt4)).setText("Q4");
         ((TextView) findViewById(R.id.bt5)).setText("Q5");
 
-        //update visual element of the answer button
+        //Update visual element of the answer button
         findViewById(R.id.bt1).setBackgroundResource(R.drawable.round_next_button);
         findViewById(R.id.bt2).setBackgroundResource(R.drawable.round_next_button);
         findViewById(R.id.bt3).setBackgroundResource(R.drawable.round_next_button);
         findViewById(R.id.bt4).setBackgroundResource(R.drawable.round_next_button);
         findViewById(R.id.bt5).setBackgroundResource(R.drawable.round_next_button);
 
-       //instantiates a timer which disables all answer buttons when time runs out
+       //Instantiates a timer which disables all answer buttons when time runs out
         td = new CountDownTimer(15000, 1000) {
+            //Enables all buttons and captures TimeOut_Flag
             public void onTick(long millisUntilFinished) {
                 ((TextView) findViewById(R.id.tv_timer)).setText(String.valueOf(millisUntilFinished / 1000));
                 findViewById(R.id.bt1).setEnabled(true);
@@ -89,6 +93,7 @@ public class MathQuestion extends AppCompatActivity {
                     findViewById(R.id.btRefresh).setVisibility(View.VISIBLE);
                 }
             }
+            //Disables all buttons after 1 answer has been selected
             public void onFinish() {
                 ((TextView) findViewById(R.id.tv_timer)).setText("0");
                 findViewById(R.id.bt1).setEnabled(false);
@@ -100,7 +105,7 @@ public class MathQuestion extends AppCompatActivity {
         }.start();
     }
 
-    //produces a CORRECT or INCORRECT or OUT OF TIME dialog when the user answers a question
+    //Produces a CORRECT or INCORRECT or OUT OF TIME dialog when the user answers a question
     private void answerDialog(boolean Answer) {
         td.onFinish();
         td.cancel();
@@ -161,7 +166,6 @@ public class MathQuestion extends AppCompatActivity {
         }
         answerDialog(correctResponse == 0);
     }
-
     public void onQ2(View view) {
         if (correctResponse == 1) {
             ((TextView) findViewById(R.id.bt2)).setText("Correct!");
@@ -172,7 +176,6 @@ public class MathQuestion extends AppCompatActivity {
         }
         answerDialog(correctResponse == 1);
     }
-
     public void onQ3(View view) {
         if (correctResponse == 2) {
             ((TextView) findViewById(R.id.bt3)).setText("Correct!");
@@ -183,7 +186,6 @@ public class MathQuestion extends AppCompatActivity {
         }
         answerDialog(correctResponse == 2);
     }
-
     public void onQ4(View view) {
         if (correctResponse == 3) {
             ((TextView) findViewById(R.id.bt4)).setText("Correct!");
@@ -194,7 +196,6 @@ public class MathQuestion extends AppCompatActivity {
         }
         answerDialog(correctResponse == 3);
     }
-
     public void onQ5(View view) {
         if (correctResponse == 4) {
             ((TextView) findViewById(R.id.bt5)).setText("Correct!");
@@ -210,5 +211,4 @@ public class MathQuestion extends AppCompatActivity {
         Intent intent = new Intent(this, ResultPage.class);
         startActivity(intent);
     }
-
 }

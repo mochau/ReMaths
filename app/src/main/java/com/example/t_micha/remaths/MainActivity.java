@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //hide title bar
         getSupportActionBar().hide(); // hide title bar
         setContentView(R.layout.activity_main);
+
+        //Loads for 3 seconds before entering SelectionMenu Activity
         td = new CountDownTimer(3000, 1000) {
             public void onTick(long millisUntilFinished) {
                             }
