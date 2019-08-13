@@ -1,9 +1,9 @@
 # ReMaths
 Maths app built on the math.ly API
-<br><br>
+<br>
+## Walkthrough
 When a user loads ReMaths, they are greeted with a welcome screen. Once loading is completed the user is prompted to choose a topic and difficulty. The user is then given details about the test they are about to take.
 <br>
-# Screenshots
 <table style="width:"100%">
   <tr>
     <th>Landing Page</th>
